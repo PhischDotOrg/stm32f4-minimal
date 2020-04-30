@@ -71,26 +71,26 @@ static gpio::GpioEngine                 gpio_engine_D(&gpio_D);
 /*******************************************************************************
  * LEDs
  ******************************************************************************/
-static gpio::GpioPin                    g_led_green(&gpio_engine_D, 12);
-static gpio::GpioPin                    g_led_orange(&gpio_engine_D, 13);
-static gpio::GpioPin                    g_led_red(&gpio_engine_D, 14);
-static gpio::GpioPin                    g_led_blue(&gpio_engine_D, 15);
+static gpio::PinT<decltype(gpio_engine_D)>  g_led_green(&gpio_engine_D, 12);
+static gpio::PinT<decltype(gpio_engine_D)>  g_led_orange(&gpio_engine_D, 13);
+static gpio::PinT<decltype(gpio_engine_D)>  g_led_red(&gpio_engine_D, 14);
+static gpio::PinT<decltype(gpio_engine_D)>  g_led_blue(&gpio_engine_D, 15);
 
 /*******************************************************************************
  * UART
  ******************************************************************************/
-static gpio::GpioPin                    uart_tx(&gpio_engine_C, 6);
-static gpio::GpioPin                    uart_rx(&gpio_engine_C, 7);
-static uart::UartAccessSTM32F4_Uart6    uart_access(rcc, uart_rx, uart_tx);
-uart::UartDevice                        g_uart(&uart_access);
+static gpio::PinT<decltype(gpio_engine_C)>  uart_tx(&gpio_engine_C, 6);
+static gpio::PinT<decltype(gpio_engine_C)>  uart_rx(&gpio_engine_C, 7);
+static uart::UartAccessSTM32F4_Uart6        uart_access(rcc, uart_rx, uart_tx);
+uart::UartDevice                            g_uart(&uart_access);
 
 /*******************************************************************************
  * Tasks
  ******************************************************************************/
-static tasks::Heartbeat                 heartbeat_bl("hrtbt_b", g_uart, g_led_blue, 4, 4000);
-static tasks::Heartbeat                 heartbeat_gn("heartbt", g_uart, g_led_green, 3, 2000);
-static tasks::Heartbeat                 heartbeat_or("hrtbt_o", g_uart, g_led_orange, 2, 1000);
-static tasks::Heartbeat                 heartbeat_rd("hrtbt_r", g_uart, g_led_red, 1, 500);
+static tasks::HeartbeatT<decltype(g_uart), decltype(g_led_blue)>        heartbeat_bl("hrtbt_b", g_uart, g_led_blue, 4, 4000);
+static tasks::HeartbeatT<decltype(g_uart), decltype(g_led_green)>       heartbeat_gn("hrtbt_g", g_uart, g_led_green, 3, 2000);
+static tasks::HeartbeatT<decltype(g_uart), decltype(g_led_orange)>      heartbeat_or("hrtbt_o", g_uart, g_led_orange, 2, 1000);
+static tasks::HeartbeatT<decltype(g_uart), decltype(g_led_red)>         heartbeat_rd("hrtbt_r", g_uart, g_led_red, 1, 500);
 
 /*******************************************************************************
  *
