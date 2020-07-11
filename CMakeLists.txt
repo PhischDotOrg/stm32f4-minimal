@@ -30,8 +30,7 @@ set(TARGET_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
-# set(STM32F4_BOARD   STM32F4_Discovery   CACHE STRING "STM32F4 Board Type")
-set(STM32F4_BOARD   STM32F4_Nucleo_L432KC   CACHE STRING "STM32F4 Board Type")
+set(STM32F4_BOARD   STM32F4_Discovery   CACHE STRING "STM32F4 Board Type")
 
 ###############################################################################
 # Include a common CMake File that contains the stuff which would normally go
