@@ -7,7 +7,7 @@ This project makes use of git's [submodules](https://git-scm.com/book/en/v2/Git-
 Example:
 
 ```
-$ git clone git@github.com:PhischDotOrg/stm32f4-nucleo32.git --recursive
+$ git clone git@github.com:PhischDotOrg/stm32f4-minimal.git --recursive
 ```
 
 # How to build
