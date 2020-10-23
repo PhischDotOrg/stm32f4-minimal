@@ -61,6 +61,9 @@ static stm32::Rcc                       rcc(RCC, pllCfg, flash, pwr);
 static stm32::Gpio::A                   gpio_A(rcc);
 static gpio::GpioEngine                 gpio_engine_A(&gpio_A);
 
+static stm32::Gpio::B                   gpio_B(rcc);
+static gpio::GpioEngine                 gpio_engine_B(&gpio_B);
+
 static stm32::Gpio::C                   gpio_C(rcc);
 static gpio::GpioEngine                 gpio_engine_C(&gpio_C);
 
@@ -86,7 +89,7 @@ uart::UartDevice                        g_uart(&uart_access);
  ******************************************************************************/
 static gpio::AlternateFnPin spi_sclk(gpio_engine_A, 5);
 static gpio::AlternateFnPin spi_nsel(gpio_engine_A, 4);
-static gpio::AlternateFnPin spi_mosi(gpio_engine_A, 7);
+static gpio::AlternateFnPin spi_mosi(gpio_engine_B, 5);
 static gpio::AlternateFnPin spi_miso(gpio_engine_A, 6);
 
 #if defined(SPI_VIA_DMA)
@@ -109,7 +112,7 @@ ws2812b_spibus( /* p_rcc = */ rcc,
                 /* p_nsel = */ spi_nsel,
                 /* p_mosi = */ spi_mosi,
                 /* p_miso = */ spi_miso,
-                /* p_prescaler = */ decltype(ws2812b_spibus)::BaudRatePrescaler_e::e_SpiPrescaler16
+                /* p_prescaler = */ decltype(ws2812b_spibus)::BaudRatePrescaler_e::e_SpiPrescaler32
 );
 
 static spi::DeviceT ws2812b_spidev(&ws2812b_spibus);
